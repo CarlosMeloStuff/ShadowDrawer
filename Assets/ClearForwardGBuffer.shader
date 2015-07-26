@@ -8,7 +8,6 @@ Shader "Hidden/ClearForwardGBuffer"
             Cull Off
             ZTest Always
             ZWrite On
-            ColorMask 0
 
             CGPROGRAM
             #pragma vertex vert
@@ -16,6 +15,7 @@ Shader "Hidden/ClearForwardGBuffer"
 
             sampler2D _CameraGBufferTexture2;   // normal (rgb), --unused, very low precision-- (a) 
             #define HalfPixelSize ((_ScreenParams.zw-1.0)*0.5)
+            float4 _ClearColor;
 
             struct ia_out {
                 float4 vertex : POSITION;
@@ -51,7 +51,7 @@ Shader "Hidden/ClearForwardGBuffer"
                 if (dot(n, 1) > 0) { discard; } // discard if this pixel is deferred object
 
                 ps_out o;
-                o.color = 0;
+                o.color = _ClearColor;
                 o.depth = 1;
                 return o;
             }

@@ -40,6 +40,7 @@ public class ClearForwardGBuffer : MonoBehaviour
 
     void OnPreRender()
     {
+        var cam = GetComponent<Camera>();
         if (m_material == null)
         {
             m_material = new Material(m_shader);
@@ -49,7 +50,8 @@ public class ClearForwardGBuffer : MonoBehaviour
             m_commands = new CommandBuffer();
             m_commands.name = "ClearForwardGBuffer";
             m_commands.DrawMesh(m_quad, Matrix4x4.identity, m_material);
-            GetComponent<Camera>().AddCommandBuffer(CameraEvent.AfterLighting, m_commands);
+            cam.AddCommandBuffer(CameraEvent.AfterFinalPass, m_commands);
         }
+        m_material.SetColor("_ClearColor", cam.backgroundColor);
     }
 }
