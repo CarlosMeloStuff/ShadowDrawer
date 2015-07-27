@@ -13,13 +13,12 @@ System Requirements
 Limitations
 -----------
 
-- Works only on Forward rendering path.
 - Conflicts with skyboxes. Use a solid color or a screen-sized quad for a background.
 
 Usage
 -----
 
-Create a material and change shader to Custom/ShadowDrawer. You can specify a color (rgb) and opacity (a) of shadows with the Shadow Color property. 
+Create a material and change shader to Custom/ShadowDrawer. You can specify a color (rgb) and opacity (a) of shadows with the Shadow Color property.
 
 ![Property](http://keijiro.github.io/ShadowDrawer/Property.png)
 
@@ -28,6 +27,8 @@ Set this material to objects that receives shadows. Besides that, you should tur
 ![CastShadows](http://keijiro.github.io/ShadowDrawer/CastShadows.png)
 
 This is not mandatory but gives proper results in most cases.
+
+Attach ClearForwardGBuffer component to cameras. This is required if Rendering Path is deferred. ( ClearForwardGBuffer do nothing if Rendering Path is forward)
 
 License
 -------
